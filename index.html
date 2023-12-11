@@ -7,15 +7,22 @@
 </head>
 <body>
 <script>
-    function getComputerChoice() {
-    }    
-        // playerChoice
-let playerInput = prompt("Please enter your choice here","");
-let playerChoice = playerInput.toLowerCase();
-if (playerChoice === "rock" || playerChoice === "paper" || playerChoice === "scissors") {
+const choices = ["rock", "paper", "scissors"];
+
+function getComputerChoice() {
+    const choices = ["rock", "paper", "scissors"];
+    const computerChoice = Math.floor(Math.random() * choices.length);
+    console.log(choices[computerChoice]);
+}    
+
+function getPlayerChoice() {    
+    let playerInput = prompt("Please enter your choice here","");
+    let playerChoice = playerInput.toLowerCase();
+    if (playerChoice === "rock" || playerChoice === "paper" || playerChoice === "scissors") {
     // Comparison of computer choice and my choice
-} else {
-    alert("The value you have entered is invalid. Please try again.");
+    } else {
+        alert("The value you have entered is invalid. Please try again.");
+    }
 }
 
 </script>
