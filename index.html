@@ -6,14 +6,29 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="selection">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+    <div id="scoreboard">Player Score - Computer Score</div>
+    <div id="matchup"></div>
+<style>
+</style>
 <script>
 const choices = ["rock", "paper", "scissors"];
+let playerChoice = ""
+let computerChoice = ""
+let playerScore = 0
+let computerScore = 0
+
 function playRound() {
+    let playerChoice = event.target.id;
     getComputerChoice();
-    getPlayerChoice();
     compareChoice();
+    scoreboard.textContent = `Player ${playerScore} - Computer ${computerScore}`;
+    finalScore();
 }
-    
 
 function getComputerChoice() {
     const choices = ["rock", "paper", "scissors"];
@@ -22,70 +37,38 @@ function getComputerChoice() {
     return computerChoice;
 }    
 
-function getPlayerChoice() {    
-    let playerInput = prompt("Please enter your choice here","");
-    playerChoice = playerInput.toLowerCase();
-    if (playerChoice === "rock" || playerChoice === "paper" || playerChoice === "scissors") {
-        return playerChoice;
-    } else {   
-        alert("The value you have entered is invalid. Please try again.");
-    }
-}
-
-let playerChoice = ""
-let computerChoice = ""
-let playerScore = 0
-let computerScore = 0
-
 function compareChoice() {
-    if (playerChoice === "rock" && computerChoice === "scissors") {
-        alert(`You win! ${playerChoice} beats ${computerChoice}.`);
+    let playerChoice = event.target.id;
+    if (playerChoice === "rock" && computerChoice === "scissors" || playerChoice === "scissors" && computerChoice === "paper" || playerChoice === "paper" && computerChoice === "rock") {
+        matchup.textContent = `You win! ${playerChoice} beats ${computerChoice}.`;
         playerScore++;
-        console.log(playerScore);
-        console.log(computerScore);
-    } else if (playerChoice === "scissors" && computerChoice === "paper") {
-        alert(`You win! ${playerChoice} beats ${computerChoice}.`);
-        playerScore++;
-        console.log(playerScore); 
-        console.log(computerScore);      
-    } else if (playerChoice === "paper" && computerChoice === "rock") {
-        alert(`You win! ${playerChoice} beats ${computerChoice}.`);
-        playerScore++;
-        console.log(playerScore);  
-        console.log(computerScore);     
-    } else if (computerChoice === "rock" && playerChoice === "scissors") {
-        alert(`You lose! ${computerChoice} beats ${playerChoice}.`);
-        computerScore++;
-        console.log(playerScore);  
-        console.log(computerScore);              
-    } else if (computerChoice === "paper" && playerChoice === "rock") {
-        alert(`You lose! ${computerChoice} beats ${playerChoice}.`);
-        computerScore++;
-        console.log(playerScore);
-        console.log(computerScore);                
-    } else if (computerChoice === "scissors" && playerChoice === "paper") {
-        alert(`You lose! ${computerChoice} beats ${playerChoice}.`);
-        computerScore++;
-        console.log(playerScore);   
-        console.log(computerScore);             
+    } else if (computerChoice === "rock" && playerChoice === "scissors" || computerChoice === "paper" && playerChoice === "rock" || computerChoice === "scissors" && playerChoice === "paper") {
+        matchup.textContent = `You lose! ${computerChoice} beats ${playerChoice}.`;
+        computerScore++;             
     } else {
-        alert("It's a draw! Play again.")
-        playRound();
+        matchup.textContent = "It's a draw! Play again.";
     }
 }
 
-function game() {
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    if (playerScore >= 3) {
-        alert(`You win the match! Final score: ${playerScore} - ${computerScore}`)
-    } else if (computerScore >= 3) {
-        alert(`You lose the match! Final score: ${playerScore} - ${computerScore}`)
-    }
-}
+let selection = document.querySelector('#selection');
+selection.addEventListener('click', playRound);
+
+let scoreboard = document.querySelector('#scoreboard');
+let matchup = document.querySelector("#matchup");
+
+function finalScore() {
+if (playerScore == 5) {
+    scoreboard.textContent = `You win the match! Final score: ${playerScore} - ${computerScore}`;
+    matchup.textContent = "";
+    playerScore = 0;
+    computerScore = 0;
+} else if (computerScore == 5) {
+    scoreboard.textContent = `You lose the match! Final score: ${playerScore} - ${computerScore}`;
+    matchup.textContent = "";
+    playerScore = 0;
+    computerScore = 0;
+} else {
+}}
 </script>
 </body>
 </html>
